@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Prendre des notes en markdown</title>
+        <link href="css/style.css" rel="stylesheet" />
+        <!-- Polices -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Tangerine" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+
+        <script type="text/javascript" src="js/marked.js"></script>
+    </head>
+        
+    <body>
+        <div class="content_wrapper" id="content_markdown">
+            <h2>Markdown</h2>
+    		<form id="markdown_form" method="post" action="index.html">
+    			<p class="form_wrapper">
+    				<textarea id="markdown_to_convert" name="markdown_to_convert"></textarea><br />
+                    <input class="nice_button" type="submit" value="Lire">
+    			</p>
+    		</form>
+        </div>
+
+        <div class="content_wrapper" id="content_html">
+            <h2>HTML</h2>
+            <form id="html_form" method="post" action="index.html">
+                <p class="form_wrapper">
+                    <textarea id="markdown_converted" name="markdown_converted"></textarea>
+                </p>
+            </form>
+        </div>
+
+		<script type="text/javascript">
+            /**
+             *  Converti le MarkDown tapé dans le formulaire en html
+             */
+            function convertMarkdown() {
+
+                var contentHtmlElt = document.getElementById('markdown_converted');
+                var markdownToConvertElt = document.getElementById('markdown_to_convert');
+                contentHtmlElt.value = marked(markdownToConvertElt.value);
+            }
+
+            // Formulaire d'édition markdown
+            var convertFormElt = document.getElementById('markdown_form');
+            convertFormElt.addEventListener('submit', function(evt) {
+                evt.preventDefault();
+                convertMarkdown();
+            });
+
+            // Mise à jour du contenu HTML quand on tape quelque chose dans la zone d'édition markdown
+            var markdownToConvertElt = document.getElementById('markdown_to_convert');
+            markdownToConvertElt.addEventListener('keyup', convertMarkdown);
+		</script>
+    </body>
+</html>
