@@ -48,6 +48,12 @@
             </form>
         </div>
 
+        <!-- Rendu final -->
+        <div class="content_wrapper">
+            <h2>Rendu final</h2>
+            <div id="final_view"></div>
+        </div>
+
         <!-- Conversion -->
 		<script type="text/javascript">
             // Id de la zone de texte en markdown
@@ -64,7 +70,10 @@
 
                 var contentHtmlElt = document.getElementById('markdown_converted');
                 var markdownToConvertElt = document.getElementById(MARKDOWN_TO_CONVERT_ID);
-                contentHtmlElt.value = marked(markdownToConvertElt.value);
+                var finalViewElt = document.getElementById('final_view');
+                var htmlCode = marked(markdownToConvertElt.value);
+                contentHtmlElt.value = htmlCode;
+                finalViewElt.innerHTML = htmlCode;
             }
 
             /**
