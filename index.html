@@ -99,6 +99,7 @@
                 var yesBtnElt = document.getElementById('continue_text_yes');
                 var noBtnElt = document.getElementById('continue_text_no');
 
+                msgBoxWrapper.style.display = 'flex';
                 msgBoxContinueCookie.style.display = "block";
                 yesBtnElt.addEventListener('click', function() {
                     markdownToConvertElt.value = getCookie(MARKDOWN_COOKIE_NAME);
