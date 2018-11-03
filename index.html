@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Prendre des notes en markdown</title>
+        <title>Convertisseur markdown / HTML</title>
         <link href="css/style.css" rel="stylesheet" />
         <!-- Polices -->
         <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet">
@@ -36,8 +36,18 @@
                     <input class="nice_button" type="submit" value="Lire">
     			</p>
     		</form>
-            <p>Charger un fichier .md</p>
+
+            <!-- Chargement d'un fichier markdown -->
+            <h3>Charger un fichier markdown (.md)</h3>
             <input type="file" id="file_input" />
+
+            <!-- Enregistrement markdown -->
+            <h3>Enregistrer le fichier markdown</h3>
+            <div id="save_file_wrapper">
+                <label for="file_md_name">Nom du fichier</label><br />
+                <input type="text" name="file_md_name" id="file_md_name" /><br />
+                <p><a href="#" id="download_md_link" target="_blank">Enregistrer le fichier markdown</a></p>
+            </div>
         </div>
 
         <!-- Contenu HTML -->
@@ -48,6 +58,14 @@
                     <textarea id="markdown_converted" name="markdown_converted"></textarea>
                 </p>
             </form>
+
+            <!-- Enregistrement d'un fichier HTML -->
+            <h3>Enregistrer le fichier HTML</h3>
+            <div id="save_file_wrapper">
+                <label for="file_html_name">Nom du fichier</label><br />
+                <input type="text" name="file_html_name" id="file_html_name" /><br />
+                <p><a href="#" id="download_html_link" target="_blank">Enregistrer le fichier HTML</a></p>
+            </div>
         </div>
 
         <!-- Rendu final -->
@@ -126,6 +144,6 @@
                 console.log('Pas de texte à charger.');
             }
         </script>
-        <script type="text/javascript" src="js/filesManager.js"></script>
+        <script type="text/javascript" src="js/fileManager.js"></script>
     </body>
 </html>
