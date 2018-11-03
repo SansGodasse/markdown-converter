@@ -44,65 +44,98 @@ function displayContents(contents) {
 function makeFile(content, type = 'md') {
 
     var data = new Blob([content], {type: 'text/' + type});
-    
-    // BUG : pas moyen de faire fonctionner le lien pour le markdown. Le html prend le dessus.
-    switch (type) {
-        case 'md':
-            if (markdownFile !== null) {
-                window.URL.revokeObjectURL(markdownFile);
-            }
-            markdownFile = window.URL.createObjectURL(data);
-            return markdownFile;
-            break;
-        case 'html':
-            if (htmlFile !== null) {
-                window.URL.revokeObjectURL(htmlFile);
-            }
-            htmlFile = window.URL.createObjectURL(data);
-            return htmlFile;
-            break;
+
+    if (file !== null) {
+        window.URL.revokeObjectURL(file);
     }
+    file = window.URL.createObjectURL(data);
+    return file;
 }
 
 /** 
  *  Met à jour le lien de téléchargement pour le fichier
- *
- *  @param {Object} options les options du lien
  */
-function updateDownloadLink(options = {fileNameId: 'file_md_name', linkId: 'download_md_link', linkTextContent: 'Télécharger le fichier markdown', contentId: 'markdown_to_convert', fileExtension: 'md'}) {
+function updateDownloadLink() {
 
-    var linkElt = document.getElementById(options.linkId);
-    linkElt.parentNode.replaceChild(createLink(options), linkElt);
+    var linkElt = document.getElementById('download_link');
+    if (document.getElementById('Markdown').checked) {
+        linkElt.parentNode.replaceChild(createLink('md'), linkElt);
+    } else if (document.getElementById('HTML').checked) {
+        linkElt.parentNode.replaceChild(createLink('html'), linkElt);
+    }
 }
 
 /**
  *  Créé un élément <a> pour télécharger
  *
- *  @param {Object} options les options du lien
+ *  @param {string} fileExtension l'extension du fichier à télécharger
  */
-function createLink(options = {fileNameId: 'file_md_name', linkId: 'download_md_link', linkTextContent: 'Télécharger le fichier markdown', contentId: 'markdown_to_convert', fileExtension: 'md'}) {
+function createLink(fileExtension) {
 
     var linkElt = document.createElement('a');
-    var fileNameElt = document.getElementById(options.fileNameId);
-    linkElt.id = options.linkId;
-    linkElt.textContent = options.linkTextContent;
-    linkElt.href = makeFile(document.getElementById(options.contentId).value, 'md');
+    var fileNameElt = document.getElementById('file_name');
+
+    linkElt.id = "download_link";
+    linkElt.textContent = "Télécharger le fichier ";
+
+    switch (fileExtension) {
+        case 'md':
+            linkElt.href = makeFile(document.getElementById('markdown_to_convert').value, 'md');
+            linkElt.appendChild(makeDOMElement('strong', 'Markdown'));
+            break;
+        case 'html':
+            linkElt.href = makeFile(document.getElementById('markdown_converted').value, 'html');
+            linkElt.appendChild(makeDOMElement('strong', 'HTML'));
+            break;
+        default:
+            linkElt.href = '#';
+    }
+    
     if (fileNameElt.value !== "")
-        linkElt.download = fileNameElt.value + '.' + options.fileExtension;
+        linkElt.download = fileNameElt.value + '.' + fileExtension;
     else
-        linkElt.download = "mon-super-fichier" + '.' + options.fileExtension;
+        linkElt.download = "mon-super-fichier." + fileExtension;
+
     return linkElt;
+}
+
+/**
+ *  Mets à jour le texte du lien de téléchargement
+ *
+ *  @param {string} fileType le type de fichier désiré
+ */
+function updateDownloadLinkText(fileType) {
+
+    var linkElt = document.getElementById('download_link');
+    linkElt.textContent = "Télécharger le fichier ";
+    linkElt.appendChild(makeDOMElement('strong', fileType));
+}
+
+/**
+ *  Créé un élément du DOM
+ */
+function makeDOMElement(tag, content) {
+
+    var elt = document.createElement(tag);
+    elt.textContent = content;
+    return elt;
 }
 
 // Lecture d'un fichier
 document.getElementById('file_input').addEventListener('change', readSingleFile, false);
 
 // Enregistrement des fichiers
-var markdownFile = null;
-var htmlFile = null;
+var file = null;
 document.getElementById('markdown_to_convert').addEventListener('keyup', function() {
     updateDownloadLink(); // Je passe par une fonction anonyme pour éviter de passer l'évènement à ma fonction
 });
-document.getElementById('markdown_to_convert').addEventListener('keyup', function() {
-    updateDownloadLink({fileNameId: 'file_html_name', linkId: 'download_html_link', linkTextContent: 'Télécharger le fichier HTML', contentId: 'markdown_converted', fileExtension: 'html'});
+
+// Mise à jour du texte du lien de téléchargement
+var fileExtensionRadioMarkdown = document.getElementById('Markdown');
+var fileExtensionRadioHTML = document.getElementById('HTML');
+fileExtensionRadioMarkdown.addEventListener('click', function() {
+    updateDownloadLink();
+});
+fileExtensionRadioHTML.addEventListener('click', function() {
+    updateDownloadLink();
 });

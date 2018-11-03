@@ -27,6 +27,26 @@
             </div>
         </div>
 
+        <!-- Commandes -->
+        <div class="content_wrapper" id="commands">
+
+            <!-- Chargement d'un fichier markdown -->
+            <h3>Charger un fichier markdown (.md)</h3>
+            <input type="file" id="file_input" />
+
+            <!-- Enregistrement -->
+            <h3>Enregistrer</h3>
+            <div id="save_file_wrapper">
+                <label for="file_name">Nom du fichier</label><br />
+                <input type="text" name="file_name" id="file_name" /><br />
+
+                <input type="radio" name="file_type" id="Markdown" value="Markdown" /><label for="Markdown">Markdown</label>
+                <input type="radio" name="file_type" id="HTML" value="HTML" /><label for="HTML">HTML</label>
+
+                <p><a href="#" id="download_link"></a></p>
+            </div>
+        </div>
+
         <!-- Contenu markdown -->
         <div class="content_wrapper" id="content_markdown">
             <h2>Markdown</h2>
@@ -36,18 +56,6 @@
                     <input class="nice_button" type="submit" value="Lire">
     			</p>
     		</form>
-
-            <!-- Chargement d'un fichier markdown -->
-            <h3>Charger un fichier markdown (.md)</h3>
-            <input type="file" id="file_input" />
-
-            <!-- Enregistrement markdown -->
-            <h3>Enregistrer le fichier markdown</h3>
-            <div id="save_file_wrapper">
-                <label for="file_md_name">Nom du fichier</label><br />
-                <input type="text" name="file_md_name" id="file_md_name" /><br />
-                <p><a href="#" id="download_md_link" target="_blank">Enregistrer le fichier markdown</a></p>
-            </div>
         </div>
 
         <!-- Contenu HTML -->
@@ -58,14 +66,6 @@
                     <textarea id="markdown_converted" name="markdown_converted"></textarea>
                 </p>
             </form>
-
-            <!-- Enregistrement d'un fichier HTML -->
-            <h3>Enregistrer le fichier HTML</h3>
-            <div id="save_file_wrapper">
-                <label for="file_html_name">Nom du fichier</label><br />
-                <input type="text" name="file_html_name" id="file_html_name" /><br />
-                <p><a href="#" id="download_html_link" target="_blank">Enregistrer le fichier HTML</a></p>
-            </div>
         </div>
 
         <!-- Rendu final -->
