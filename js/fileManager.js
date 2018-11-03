@@ -26,7 +26,7 @@ function readSingleFile(evt) {
  */
 function displayContents(contents) {
 
-    var element = document.getElementById('file_content');
+    var element = document.getElementById('markdown_to_convert');
     element.textContent = contents;
 }
 
