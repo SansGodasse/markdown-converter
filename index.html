@@ -105,6 +105,26 @@
                 setCookie(MARKDOWN_COOKIE_NAME, markdownToSave, MARKDOWN_COOKIE_DURATION);
             }
 
+            /**
+             *  Change l'action de la touche tab
+             *
+             *  @param {Event} evt l'évènement keyup
+             */
+            function changeTabAction(evt) {
+
+                var keyCode = evt.keyCode || evt.which;
+                if (keyCode == 9){
+                    evt.preventDefault();
+                    var s = this.selectionStart;
+                    this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+                    this.selectionEnd = s+1;
+                }
+            }
+
+
+            // Instructions
+            // ------------
+
             // Formulaire d'édition markdown
             var convertFormElt = document.getElementById('markdown_form');
             convertFormElt.addEventListener('submit', function(evt) {
@@ -119,6 +139,10 @@
                 convertMarkdown();
                 saveMarkdownCookie();
             });
+
+            // Désactivation de la touche tab dans les zones de texte
+            markdownToConvertElt.addEventListener('keydown', changeTabAction);
+            document.getElementById('markdown_converted').addEventListener('keydown', changeTabAction);
 
             // Chargement du cookie enregistré
             if (getCookie(MARKDOWN_COOKIE_NAME)) {
