@@ -3,21 +3,24 @@
     <head>
         <meta charset="utf-8" />
         <title>Convertisseur markdown / HTML</title>
-        <link href="css/style.css" rel="stylesheet" />
         <!-- Polices -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Tangerine" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+        <!-- Mise en forme du contenu -->
+        <link id="css_link" href="css/style.css" rel="stylesheet" />
+        <!-- Mise en forme des commandes et des fenêtres d'édition -->
+        <link href="css/convertorStyle.css" rel="stylesheet" />
 
         <script type="text/javascript" src="js/marked.js"></script>
         <script type="text/javascript" src="js/cookies.js"></script>
     </head>
         
     <body>
-        <!-- Boîte de dialogue pour reprendre le parcours enregistré dans le cookie -->
+        <!-- Boîte de dialogue pour reprendre le texte enregistré dans le cookie -->
         <div id="msg_box_wrapper">
             <div class="info_window" id="continue_old_text_window">
-                <p>
+                <p class="converter_p">
                     Voulez-vous reprendre là où vous en étiez la dernière fois ?
                 </p>
                 <div class="window_btns_wrapper">
@@ -31,7 +34,7 @@
         <div class="content_wrapper" id="commands">
 
             <!-- Chargement d'un fichier markdown -->
-            <h3>Charger un fichier markdown (.md)</h3>
+            <h3 class="converter_h3">Charger un fichier markdown (.md)</h3>
             <input type="file" id="file_input" />
 
             <!-- Enregistrement -->
@@ -45,14 +48,21 @@
 
                 <p><a href="#" id="download_link"></a></p>
             </div>
+
+            <!-- Mise en forme -->
+            <h3>Mise en forme</h3>
+            <div id="css_wrapper">
+                <label for="css_file">Fichier CSS à utiliser : </label>
+                <input type="file" id="css_file" />
+            </div>
         </div>
 
         <!-- Contenu markdown -->
         <div class="content_wrapper" id="content_markdown">
             <h2>Markdown</h2>
-    		<form id="markdown_form" method="post" action="index.html">
+    		<form class="converter_form" id="markdown_form" method="post" action="index.html">
     			<p class="form_wrapper">
-    				<textarea id="markdown_to_convert" name="markdown_to_convert"></textarea><br />
+    				<textarea class="converter_textarea" id="markdown_to_convert" name="markdown_to_convert"></textarea><br />
                     <input class="nice_button" type="submit" value="Lire">
     			</p>
     		</form>
@@ -61,9 +71,9 @@
         <!-- Contenu HTML -->
         <div class="content_wrapper" id="content_html">
             <h2>HTML</h2>
-            <form id="html_form" method="post" action="index.html">
+            <form class="converter_form" id="html_form" method="post" action="index.html">
                 <p class="form_wrapper">
-                    <textarea id="markdown_converted" name="markdown_converted"></textarea>
+                    <textarea class="converter_textarea" id="markdown_converted" name="markdown_converted"></textarea>
                 </p>
             </form>
         </div>
@@ -169,5 +179,6 @@
             }
         </script>
         <script type="text/javascript" src="js/fileManager.js"></script>
+        <script type="text/javascript" src="js/formatContent.js"></script>
     </body>
 </html>
