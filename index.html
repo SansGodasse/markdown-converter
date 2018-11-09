@@ -17,19 +17,6 @@
     </head>
         
     <body>
-        <!-- Boîte de dialogue pour reprendre le texte enregistré dans le cookie -->
-        <div id="msg_box_wrapper">
-            <div class="info_window" id="continue_old_text_window">
-                <p class="converter_p">
-                    Voulez-vous reprendre là où vous en étiez la dernière fois ?
-                </p>
-                <div class="window_btns_wrapper">
-                    <button class="nice_button" id="continue_text_yes">Oui</button>
-                    <button class="nice_button" id="continue_text_no">Non</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Commandes -->
         <div class="content_wrapper" id="commands">
 
@@ -88,10 +75,6 @@
 		<script type="text/javascript">
             // Id de la zone de texte en markdown
             const MARKDOWN_TO_CONVERT_ID = 'markdown_to_convert';
-            // Nom du cookie pour sauvegarder le markdown
-            const MARKDOWN_COOKIE_NAME = "recording";
-            // Durée de validité du cookie de sauvegarde en jours (faut pas mettre trop longtemps sinon ça déconne)
-            const MARKDOWN_COOKIE_DURATION = 7;
 
             /**
              *  Converti le MarkDown tapé dans le formulaire en html
@@ -104,15 +87,6 @@
                 var htmlCode = marked(markdownToConvertElt.value);
                 contentHtmlElt.value = htmlCode;
                 finalViewElt.innerHTML = htmlCode;
-            }
-
-            /**
-             *  Sauvegarde le texte entré en markdown dans un cookie
-             */
-            function saveMarkdownCookie() {
-
-                var markdownToSave = document.getElementById(MARKDOWN_TO_CONVERT_ID).value;
-                setCookie(MARKDOWN_COOKIE_NAME, markdownToSave, MARKDOWN_COOKIE_DURATION);
             }
 
             /**
@@ -140,43 +114,17 @@
             convertFormElt.addEventListener('submit', function(evt) {
                 evt.preventDefault();
                 convertMarkdown();
-                saveMarkdownCookie();
             });
 
             // Mise à jour du contenu HTML quand on tape quelque chose dans la zone d'édition markdown
             var markdownToConvertElt = document.getElementById(MARKDOWN_TO_CONVERT_ID);
             markdownToConvertElt.addEventListener('keyup', function() {
                 convertMarkdown();
-                saveMarkdownCookie();
             });
 
             // Désactivation de la touche tab dans les zones de texte
             markdownToConvertElt.addEventListener('keydown', changeTabAction);
             document.getElementById('markdown_converted').addEventListener('keydown', changeTabAction);
-
-            // Chargement du cookie enregistré
-            if (getCookie(MARKDOWN_COOKIE_NAME)) {
-
-                var msgBoxWrapper = document.getElementById('msg_box_wrapper');
-                var msgBoxContinueCookie = document.getElementById('continue_old_text_window');
-                var yesBtnElt = document.getElementById('continue_text_yes');
-                var noBtnElt = document.getElementById('continue_text_no');
-
-                msgBoxWrapper.style.display = 'flex';
-                msgBoxContinueCookie.style.display = "block";
-                yesBtnElt.addEventListener('click', function() {
-                    markdownToConvertElt.value = getCookie(MARKDOWN_COOKIE_NAME);
-                    msgBoxWrapper.style.display = 'none';
-                    convertMarkdown();
-                });
-
-                noBtnElt.addEventListener('click', function() {
-                    msgBoxWrapper.style.display = 'none';
-                });
-
-            } else {
-                console.log('Pas de texte à charger.');
-            }
         </script>
         <script type="text/javascript" src="js/fileManager.js"></script>
         <script type="text/javascript" src="js/formatContent.js"></script>

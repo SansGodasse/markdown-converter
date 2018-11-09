@@ -9,7 +9,6 @@
 function readSingleFile(evt) {
     
     var file = evt.target.files[0];
-    console.log(file);
     if (!file)
         return;
     var reader = new FileReader();
