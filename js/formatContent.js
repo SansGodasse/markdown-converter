@@ -13,11 +13,12 @@
  */
 function changeCSSFile(evt) {
 
-    var file = evt.target.files[0];
-    if (!file)
+    var selectedOption = evt.target.selectedOptions[0];
+    var fileName = selectedOption.value;
+    if (!fileName)
         return;
     var styleElt = document.getElementById('css_link');
-    styleElt.href = 'css/' + file.name;
+    styleElt.href = 'css/' + fileName;
 }
 
 /*
@@ -69,30 +70,38 @@ function readIframeCSS() {
 }
 
 /**
- *	Affiche la liste des fichiers css disponibles
+ *	Affiche la liste des fichiers css disponibles et met à jour la liste déroulante
  */
 function showCSSFilesList() {
 
-	/**
-	 *	Créé un élément "li" avec le nom d'un fichier css
-	 *
-	 *	@param {string} fileName le nom du fichier css
-	 *	@return {Element} l'élément "li"
-	 */
-	function createLiElt(fileName) {
+    /**
+     *  Créé un élément avec le nom d'un fichier css
+     *
+     *  @param {string} fileName le nom du fichier css
+     *  @param {string} tag le nom de la balise désirée
+     *  @return {Element} l'élément désiré
+     */
+    function createElt(fileName, tag) {
 
-		var liElt = document.createElement('li');
-		liElt.textContent = fileName;
-		return liElt;
-	}
+        var elt = document.createElement(tag);
+        elt.textContent = fileName;
+        if (tag === "option") {
+            elt.value = fileName;
+        }
+        return elt;
+    }
+
 
 	var listElt = document.getElementById('css_files_list');
+    var selectElt = document.getElementById('css_file_select');
 	var fileNames = readIframeCSS();
 
 	listElt.innerHTML = "";
+    selectElt.innerHTML = "";
 
 	for (var i = 0; i < fileNames.length; i++) {
-		listElt.appendChild(createLiElt(fileNames[i]));
+		listElt.appendChild(createElt(fileNames[i], 'li'));
+        selectElt.appendChild(createElt(fileNames[i], 'option'));
 	}
 }
 
@@ -103,8 +112,8 @@ function showCSSFilesList() {
 */
 
 // Lecture du fichier CSS
-var cssFileElt = document.getElementById('css_file');
-cssFileElt.addEventListener('change', changeCSSFile);
+var selectCSSFileElt = document.getElementById('css_file_select');
+selectCSSFileElt.addEventListener('change', changeCSSFile);
 
 // Lecture du dossier css avec l'iframe au chargement de la page
 var iframeCSSFolderElt = document.getElementById("css_folder_iframe");
