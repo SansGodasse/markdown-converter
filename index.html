@@ -41,11 +41,15 @@
             <div id="css_wrapper">
                 <label for="css_file">Fichier CSS à utiliser (doit se trouver dans le dossier css) : </label>
                 <input type="file" id="css_file" />
-            </div>
-        </div>
 
-        <!-- Contenu du dossier css -->
-        <iframe id="css_folder_iframe" style="display: none" src="css"></iframe>
+                <p>Fichiers css disponibles dans le dossier css :</p>
+                <ul id="css_files_list"></ul>
+                <button onclick="reloadCSSIframe();">Rafraîchir la liste</button>
+            </div>
+
+            <!-- Contenu du dossier css (masqué) -->
+            <iframe id="css_folder_iframe" style="display: none" src="css"></iframe>
+        </div>
 
         <!-- Contenu markdown -->
         <div class="content_wrapper" id="content_markdown">
@@ -74,6 +78,17 @@
             <div id="final_view"></div>
         </div>
 
+        <!-- iframe -->
+        <script type="text/javascript">
+            /**
+             *  Recharge l'iframe des fichiers css
+             */
+            function reloadCSSIframe() {
+
+                var iframeCSSFolderElt = document.getElementById("css_folder_iframe");
+                iframeCSSFolderElt.contentWindow.document.location.reload();
+            }
+        </script>
         <!-- Conversion -->
         <script type="text/javascript" src="js/convert.js"></script>
         <!-- Gestion des fichiers -->
