@@ -38,6 +38,10 @@ body {
 	width: 90%;
 }
 
+#css_file_select {
+	margin-bottom: 10px;
+}
+
 
 /*
 	Class
@@ -90,6 +94,16 @@ body {
 	color: white;
 	padding: 1em;
 	border-radius: 20px;
+}
+
+.my_list {
+	display: flex;
+}
+
+.my_list_li {
+	margin-right: 10px;
+	font-style: italic;
+	color: grey;
 }
 
 

@@ -79,12 +79,16 @@ function showCSSFilesList() {
      *
      *  @param {string} fileName le nom du fichier css
      *  @param {string} tag le nom de la balise désirée
+     *  @param {string} eltClass = false le nom de la classe si besoin
      *  @return {Element} l'élément désiré
      */
-    function createElt(fileName, tag) {
+    function createElt(fileName, tag, eltClass = false) {
 
         var elt = document.createElement(tag);
         elt.textContent = fileName;
+        if (eltClass) {
+            elt.classList.add(eltClass);
+        }
         if (tag === "option") {
             elt.value = fileName;
         }
@@ -100,7 +104,9 @@ function showCSSFilesList() {
     selectElt.innerHTML = "";
 
 	for (var i = 0; i < fileNames.length; i++) {
-		listElt.appendChild(createElt(fileNames[i], 'li'));
+		listElt.appendChild(createElt(fileNames[i], 'div', "my_list_li"));
+        listElt.innerHTML += "<br />";
+        //listElt.appendChild(document.createElement('br'));
         selectElt.appendChild(createElt(fileNames[i], 'option'));
 	}
 }
