@@ -76,6 +76,18 @@ function updateDownloadLink() {
  */
 function createLink(fileExtension, fullHTML = false) {
 
+    /**
+     *  Récupère le nom du fichier CSS sélectionné
+     *
+     *  @return le nom du fichier CSS sélectionné
+     */
+    function getCSSFileName() {
+
+        var selectElt = document.getElementById('css_file_select');
+        var selectedId = selectElt.options.selectedIndex;
+        return selectElt.options[selectedId].value;
+    }
+
     var linkElt = document.createElement('a');
     var fileNameElt = document.getElementById('file_name');
 
@@ -89,7 +101,7 @@ function createLink(fileExtension, fullHTML = false) {
             break;
         case 'html':
             if (fullHTML) {
-                var firstPart = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Convertisseur markdown / HTML</title><!-- Polices -->        <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet" />        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Tangerine" rel="stylesheet" />        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" /><!-- Mise en forme du contenu --><link id="css_link" href="css/style.css" rel="stylesheet" /><!-- Mise en forme des commandes et des fenêtres d\'édition --><link href="css/convertorStyle.css" rel="stylesheet" /><script type="text/javascript" src="js/marked.js"></script><script type="text/javascript" src="js/cookies.js"></script></head><body>';
+                var firstPart = '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Convertisseur markdown / HTML</title><!-- Polices --><link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Tangerine" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" /><!-- Mise en forme du contenu --><link id="css_link" href="css/' + getCSSFileName() + '" rel="stylesheet" /><script type="text/javascript" src="js/marked.js"></script><script type="text/javascript" src="js/cookies.js"></script></head><body>';
                 var lastPart = "</body></html>";
                 linkElt.href = makeFile(firstPart + document.getElementById('markdown_converted').value + lastPart, 'html');
                 linkElt.appendChild(makeDOMElement('strong', 'HTML complet'));

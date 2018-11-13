@@ -106,7 +106,6 @@ function showCSSFilesList() {
 	for (var i = 0; i < fileNames.length; i++) {
 		listElt.appendChild(createElt(fileNames[i], 'div', "my_list_li"));
         listElt.innerHTML += "<br />";
-        //listElt.appendChild(document.createElement('br'));
         selectElt.appendChild(createElt(fileNames[i], 'option'));
 	}
 }
