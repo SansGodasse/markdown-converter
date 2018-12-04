@@ -7,10 +7,10 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto|Shadows+Into+Light" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Tangerine" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-        <!-- Mise en forme du contenu -->
-        <link id="css_link" href="css/style.css" rel="stylesheet" />
         <!-- Mise en forme des commandes et des fenêtres d'édition -->
         <link href="css/convertorStyle.css" rel="stylesheet" />
+        <!-- Mise en forme du contenu -->
+        <link id="css_link" href="css/style.css" rel="stylesheet" />
 
         <script type="text/javascript" src="js/marked.js"></script>
         <script type="text/javascript" src="js/cookies.js"></script>
@@ -66,6 +66,9 @@
         <!-- Contenu HTML -->
         <div class="content_wrapper" id="content_html">
             <h2>HTML</h2>
+
+            <button id="show-html-button" class="nice_button" onclick="showHideHTML()">Afficher le code HTML</button>
+
             <form class="converter_form" id="html_form" method="post" action="index.html">
                 <p class="form_wrapper">
                     <textarea class="converter_textarea" id="markdown_converted" name="markdown_converted"></textarea>
@@ -79,6 +82,25 @@
             <div id="final_view"></div>
         </div>
 
+        <!-- Affichage du code HTML -->
+        <script type="text/javascript">
+            /**
+             *  Affiche ou masque le code HTML
+             */
+            function showHideHTML() {
+
+                var codeElt = document.getElementById('html_form');
+                var btnElt = document.getElementById('show-html-button');
+
+                if (btnElt.textContent === "Afficher le code HTML") {
+                    codeElt.style.display = "block";
+                    btnElt.textContent = "Masquer le code HTML";
+                } else {
+                    codeElt.style.display = "none";
+                    btnElt.textContent = "Afficher le code HTML";
+                }
+            }
+        </script>
         <!-- iframe -->
         <script type="text/javascript">
             /**

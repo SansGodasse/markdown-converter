@@ -42,6 +42,10 @@ body {
 	margin-bottom: 10px;
 }
 
+#html_form {
+	display: none;
+}
+
 
 /*
 	Class
